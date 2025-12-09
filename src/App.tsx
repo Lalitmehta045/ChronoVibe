@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showContactInfo, setShowContactInfo] = useState(false);
 
   const watches = [
     {
@@ -100,7 +101,6 @@ function App() {
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
           <div className="mb-6 inline-block">
             <div className="h-px w-12 bg-amber-400 mx-auto mb-6"></div>
-            <p className="text-amber-400 tracking-widest text-sm font-light">SINCE 1892</p>
           </div>
           <h1 className="text-6xl md:text-8xl font-light tracking-wider mb-6">
             CHRONOVIBE
@@ -219,10 +219,28 @@ function App() {
             <button className="bg-amber-400 text-black px-8 py-4 text-sm tracking-widest hover:bg-amber-500 transition-all">
               BOOK APPOINTMENT
             </button>
-            <button className="border border-white px-8 py-4 text-sm tracking-widest hover:bg-white hover:text-black transition-all">
+            <button 
+              onClick={() => setShowContactInfo(!showContactInfo)}
+              className="border border-white px-8 py-4 text-sm tracking-widest hover:bg-white hover:text-black transition-all"
+            >
               CONTACT US
             </button>
           </div>
+          {showContactInfo && (
+            <div className="mt-8 p-6 border border-amber-400 bg-black/50">
+              <h3 className="text-xl font-light tracking-wider mb-4 text-amber-400">Contact Information</h3>
+              <p className="text-lg mb-2">Brand: ChronoVibeWatches</p>
+              <p className="text-lg mb-2">Contact Number: 9399797225</p>
+              <a 
+                href="https://www.instagram.com/chronovibe_watches?igsh=MWJ2Z2o0a3l0NGgzZQ==" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-lg text-amber-400 hover:text-amber-300 transition-colors underline"
+              >
+                Instagram: @chronovibe_watches
+              </a>
+            </div>
+          )}
         </div>
       </section>
 
@@ -234,7 +252,7 @@ function App() {
                 <img src="/watch-logo.png" alt="ChronoVibe Logo" className="w-20 h-20 brightness-150 contrast-110" />
               </div>
               <p className="text-gray-400 text-sm">
-                Crafting exceptional timepieces since 1892
+                Crafting exceptional timepieces
               </p>
             </div>
             <div>
