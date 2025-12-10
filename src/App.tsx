@@ -1,36 +1,14 @@
 import { Shield, Award, Clock, Menu, X, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { watchesData } from './watchesData';
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showContactInfo, setShowContactInfo] = useState(false);
 
-  const watches = [
-    {
-      name: 'Stellar Chronograph',
-      price: '$12,500',
-      image: 'https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
-      description: 'Precision meets elegance'
-    },
-    {
-      name: 'Royal Heritage',
-      price: '$18,900',
-      image: 'https://images.pexels.com/photos/277390/pexels-photo-277390.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
-      description: 'Timeless sophistication'
-    },
-    {
-      name: 'Noir Collection',
-      price: '$15,200',
-      image: 'https://images.pexels.com/photos/1697214/pexels-photo-1697214.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
-      description: 'Bold and contemporary'
-    },
-    {
-      name: 'Diamond Elite',
-      price: '$24,800',
-      image: 'https://images.pexels.com/photos/1697215/pexels-photo-1697215.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750',
-      description: 'Unparalleled luxury'
-    }
-  ];
+  // Get the first 4 watches for the homepage
+  const watches = watchesData.slice(0, 4);
 
   const features = [
     {
@@ -55,9 +33,9 @@ function App() {
       <nav className="fixed w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <div className="flex items-center justify-start ml-2 md:ml-8">
+            <Link to="/" className="flex items-center justify-start ml-2 md:ml-8">
               <img src="/watch-logo.png" alt="ChronoVibe Logo" className="w-24 h-24 brightness-150 contrast-110" />
-            </div>
+            </Link>
 
             <div className="hidden md:flex items-center space-x-8">
               <a href="#collection" className="text-sm tracking-wider hover:text-amber-400 transition-colors">COLLECTION</a>
@@ -141,9 +119,12 @@ function App() {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <button className="border border-white px-6 py-2 text-sm tracking-wider hover:bg-white hover:text-black transition-all">
+                    <Link 
+                      to={`/watch/${watch.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="border border-white px-6 py-2 text-sm tracking-wider hover:bg-white hover:text-black transition-all"
+                    >
                       VIEW DETAILS
-                    </button>
+                    </Link>
                   </div>
                 </div>
                 <h3 className="text-xl font-light tracking-wide mb-2">{watch.name}</h3>
@@ -152,6 +133,7 @@ function App() {
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
