@@ -3,12 +3,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { watchesData } from './watchesData';
 
+function slugify(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showContactInfo, setShowContactInfo] = useState(false);
 
-  // Get the first 4 watches for the homepage
-  const watches = watchesData.slice(0, 4);
+  const watches = watchesData.slice(0, 8);
 
   const features = [
     {
@@ -34,7 +39,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link to="/" className="flex items-center justify-start ml-2 md:ml-8">
-              <img src="/watch-logo.png" alt="ChronoVibe Logo" className="w-24 h-24 brightness-150 contrast-110" />
+              <img src="/colored-logo.png" alt="ChronoVibe Logo" className="w-[5.5rem] h-[5.5rem] brightness-150 contrast-110" />
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">
@@ -120,7 +125,7 @@ function App() {
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <Link 
-                      to={`/watch/${watch.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      to={`/watch/${slugify(watch.name)}`}
                       className="border border-white px-6 py-2 text-sm tracking-wider hover:bg-white hover:text-black transition-all"
                     >
                       VIEW DETAILS
@@ -132,6 +137,16 @@ function App() {
                 <p className="text-amber-400 text-lg">{watch.price}</p>
               </div>
             ))}
+          </div>
+
+          <div className="mt-12 flex justify-center">
+            <Link
+              to="/collection"
+              className="inline-flex items-center space-x-2 border border-amber-400 text-amber-400 px-8 py-4 text-sm tracking-widest hover:bg-amber-400 hover:text-black transition-all"
+            >
+              <span>VIEW MORE</span>
+              <ChevronRight className="w-4 h-4" />
+            </Link>
           </div>
 
         </div>
@@ -201,37 +216,22 @@ function App() {
             <button className="bg-amber-400 text-black px-8 py-4 text-sm tracking-widest hover:bg-amber-500 transition-all">
               BOOK APPOINTMENT
             </button>
-            <button 
-              onClick={() => setShowContactInfo(!showContactInfo)}
+            <Link
+              to="/contact"
               className="border border-white px-8 py-4 text-sm tracking-widest hover:bg-white hover:text-black transition-all"
             >
               CONTACT US
-            </button>
+            </Link>
           </div>
-          {showContactInfo && (
-            <div className="mt-8 p-6 border border-amber-400 bg-black/50">
-              <h3 className="text-xl font-light tracking-wider mb-4 text-amber-400">Contact Information</h3>
-              <p className="text-lg mb-2">Brand: ChronoVibeWatches</p>
-              <p className="text-lg mb-2">Contact Number: 9399797225</p>
-              <a 
-                href="https://www.instagram.com/chronovibe_watches?igsh=MWJ2Z2o0a3l0NGgzZQ==" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-lg text-amber-400 hover:text-amber-300 transition-colors underline"
-              >
-                Instagram: @chronovibe_watches
-              </a>
-            </div>
-          )}
         </div>
       </section>
 
       <footer className="border-t border-white/10 py-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-12">
-            <div>
-              <div className="flex items-center justify-center mb-4 ml-4">
-                <img src="/watch-logo.png" alt="ChronoVibe Logo" className="w-20 h-20 brightness-150 contrast-110" />
+            <div className="text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start mb-4">
+                <img src="/colored-logo.png" alt="ChronoVibe Logo" className="w-20 h-20 brightness-150 contrast-110" />
               </div>
               <p className="text-gray-400 text-sm">
                 Crafting exceptional timepieces
