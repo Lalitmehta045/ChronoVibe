@@ -2,12 +2,19 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { watchesData, getRelatedWatches } from './watchesData';
 
+function slugify(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
 export default function WatchDetailPage() {
   const { watchName } = useParams<{ watchName: string }>();
   
   // Find the selected watch
   const watch = watchesData.find(w => 
-    w.name.toLowerCase().replace(/\s+/g, '-') === watchName
+    slugify(w.name) === watchName
   );
 
   if (!watch) {
@@ -31,7 +38,7 @@ export default function WatchDetailPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link to="/" className="flex items-center justify-start ml-2 md:ml-8">
-              <img src="/watch-logo.png" alt="ChronoVibe Logo" className="w-24 h-24 brightness-150 contrast-110" />
+              <img src="/colored-logo.png" alt="ChronoVibe Logo" className="w-[5.5rem] h-[5.5rem] brightness-150 contrast-110" />
             </Link>
             <Link 
               to="/" 
@@ -88,7 +95,7 @@ export default function WatchDetailPage() {
               {relatedWatches.map((relatedWatch, index) => (
                 <Link
                   key={index}
-                  to={`/watch/${relatedWatch.name.toLowerCase().replace(/\s+/g, '-')}`}
+                  to={`/watch/${slugify(relatedWatch.name)}`}
                   className="group cursor-pointer"
                 >
                   <div className="relative overflow-hidden bg-gray-900 mb-4 aspect-square">
